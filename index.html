@@ -375,15 +375,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
 
   <div class="header">
     <h1 onclick="irAlSheets()">🪙 Otto y 10 lucas</h1>
-    <p id="status"><span class="connected">Conectado</span> <span onclick="toggleThemePicker()" style="cursor:pointer;margin-left:6px;">⚙️</span></p>
-  </div>
-  <div id="theme-picker-inline" style="display:none;background:var(--card);border:1px solid var(--card-brd);border-radius:12px;padding:14px;margin-bottom:14px;">
-    <div style="color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">Tema</div>
-    <div class="theme-picker" style="justify-content:flex-start;">
-      <div style="text-align:center;"><div class="theme-dot theme-dot-obsidian" id="dot-obsidian-app" onclick="setTema('obsidian')"></div><div style="color:var(--muted);font-size:9px;margin-top:4px;">Gold</div></div>
-      <div style="text-align:center;"><div class="theme-dot theme-dot-forest" id="dot-forest-app" onclick="setTema('forest')"></div><div style="color:var(--muted);font-size:9px;margin-top:4px;">Forest</div></div>
-      <div style="text-align:center;"><div class="theme-dot theme-dot-arctic" id="dot-arctic-app" onclick="setTema('arctic')"></div><div style="color:var(--muted);font-size:9px;margin-top:4px;">Arctic</div></div>
-    </div>
+    <p id="status"><span class="connected">Conectado</span></p>
   </div>
 
   <div class="offline-banner" id="offline-banner">⚠️ Sin conexión — mostrando último dato guardado</div>
@@ -620,7 +612,43 @@ input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
   <div class="nav-item" id="nav-analisis" onclick="switchTab('analisis')">
     <span class="nav-icon">📊</span><span>Análisis</span>
   </div>
+  <div class="nav-item" id="nav-ajustes" onclick="switchTab('ajustes')">
+    <span class="nav-icon">⚙️</span><span>Ajustes</span>
+  </div>
 </nav>
+
+  <!-- ── AJUSTES ── -->
+  <div class="page" id="page-ajustes">
+    <div style="background:var(--card);border:1px solid var(--card-brd);border-radius:16px;padding:20px;margin-bottom:14px;text-align:center;">
+      <div style="font-size:32px;margin-bottom:8px;">🪙</div>
+      <div style="font-size:18px;font-weight:700;color:var(--text);">Otto y 10 lucas</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">Plan Starter</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--card-brd);border-radius:12px;padding:16px;margin-bottom:12px;">
+      <div style="color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">Script conectado</div>
+      <div id="ajustes-url-display" style="color:var(--text-sub);font-size:11px;word-break:break-all;background:var(--input-bg);border:1px solid var(--card-brd);border-radius:8px;padding:10px;margin-bottom:10px;font-family:monospace;"></div>
+      <button onclick="mostrarCambiarUrl()" style="width:100%;background:var(--accent-dim);border:1px solid var(--accent-brd);border-radius:8px;color:var(--accent);font-size:13px;font-weight:600;padding:10px;cursor:pointer;">Cambiar URL</button>
+      <div id="cambiar-url-form" style="display:none;margin-top:10px;">
+        <input type="url" id="ajustes-url-input" placeholder="https://script.google.com/macros/s/..." style="background:var(--input-bg);border:1px solid var(--card-brd);border-radius:8px;color:var(--text);font-size:13px;padding:10px;width:100%;outline:none;margin-bottom:8px;" />
+        <div style="display:flex;gap:8px;">
+          <button onclick="guardarNuevaUrl()" style="flex:1;background:var(--accent-dim);border:1px solid var(--accent-brd);border-radius:8px;color:var(--accent);font-size:13px;font-weight:600;padding:10px;cursor:pointer;">Guardar</button>
+          <button onclick="cancelarCambioUrl()" style="flex:1;background:var(--card);border:1px solid var(--card-brd);border-radius:8px;color:var(--muted);font-size:13px;padding:10px;cursor:pointer;">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--card-brd);border-radius:12px;padding:16px;margin-bottom:12px;">
+      <div style="color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Tema</div>
+      <div class="theme-picker" style="justify-content:flex-start;gap:20px;">
+        <div style="text-align:center;"><div class="theme-dot theme-dot-obsidian" id="dot-obsidian-cfg" onclick="setTema('obsidian')"></div><div style="color:var(--muted);font-size:9px;margin-top:5px;">Gold</div></div>
+        <div style="text-align:center;"><div class="theme-dot theme-dot-forest" id="dot-forest-cfg" onclick="setTema('forest')"></div><div style="color:var(--muted);font-size:9px;margin-top:5px;">Forest</div></div>
+        <div style="text-align:center;"><div class="theme-dot theme-dot-arctic" id="dot-arctic-cfg" onclick="setTema('arctic')"></div><div style="color:var(--muted);font-size:9px;margin-top:5px;">Arctic</div></div>
+      </div>
+    </div>
+
+    <button onclick="cerrarSesion()" style="width:100%;background:#1a0808;border:1px solid #3a1010;border-radius:12px;color:#c47a7a;font-size:14px;font-weight:600;padding:14px;cursor:pointer;margin-top:4px;">Cerrar sesión</button>
+  </div>
 
 <!-- ── BOTTOM SHEET ── -->
 <div class="sheet-overlay" id="sheet-overlay" onclick="cerrarSheet(event)">
@@ -797,7 +825,7 @@ function poblarUI() {
 }
 
 // ── Navegación ────────────────────────────────────────────
-const TAB_NAMES = ['home','historial','registrar','analisis'];
+const TAB_NAMES = ['home','historial','registrar','analisis','ajustes'];
 
 function switchTab(tab) {
   TAB_NAMES.forEach(t => {
@@ -807,6 +835,7 @@ function switchTab(tab) {
   });
   if (tab === 'historial') cargarHistorial();
   if (tab === 'analisis') volverAnalisis();
+  if (tab === 'ajustes') cargarAjustes();
 }
 
 function onMesChange() {
@@ -1516,6 +1545,51 @@ function mostrarOfflineBanner(v) { document.getElementById('offline-banner').cla
 function urlConMes(cmd) { return scriptUrl + '?cmd=' + encodeURIComponent(cmd) + '&mes=' + mesSeleccionado + '&anio=' + anioSeleccionado; }
 function mostrarToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast visible'; setTimeout(() => t.className = 'toast', 2500); }
 
+
+// ── AJUSTES ───────────────────────────────────────────────
+function cargarAjustes() {
+  const urlEl = document.getElementById('ajustes-url-display');
+  if (urlEl) urlEl.textContent = scriptUrl || '(no conectado)';
+  // Sync theme dots
+  const t = localStorage.getItem('otto_tema') || 'obsidian';
+  ['obsidian','forest','arctic'].forEach(n => {
+    const el = document.getElementById('dot-'+n+'-cfg');
+    if (el) el.classList.toggle('active', n === t);
+  });
+}
+
+function mostrarCambiarUrl() {
+  const form = document.getElementById('cambiar-url-form');
+  const input = document.getElementById('ajustes-url-input');
+  if (form) form.style.display = 'block';
+  if (input) { input.value = scriptUrl || ''; input.focus(); }
+}
+
+function cancelarCambioUrl() {
+  const form = document.getElementById('cambiar-url-form');
+  if (form) form.style.display = 'none';
+}
+
+function guardarNuevaUrl() {
+  const input = document.getElementById('ajustes-url-input');
+  const url = input ? input.value.trim() : '';
+  if (!url) { mostrarToast('Pegá la URL del script'); return; }
+  scriptUrl = url;
+  localStorage.setItem('otto_script_url', url);
+  const urlEl = document.getElementById('ajustes-url-display');
+  if (urlEl) urlEl.textContent = url;
+  cancelarCambioUrl();
+  mostrarToast('✅ URL actualizada');
+}
+
+function cerrarSesion() {
+  if (!confirm('¿Cerrar sesión? Se borrarán los datos locales.')) return;
+  localStorage.clear();
+  location.reload();
+}
+
+function toggleThemePicker() {}  // vacío — ya no se usa
+
 // ── TEMAS ─────────────────────────────────────────────────
 function setTema(tema) {
   const html = document.documentElement;
@@ -1523,7 +1597,7 @@ function setTema(tema) {
   else html.setAttribute('data-theme', tema);
   localStorage.setItem('otto_tema', tema);
   ['obsidian','forest','arctic'].forEach(t => {
-    ['dot-'+t, 'dot-'+t+'-app'].forEach(id => {
+    ['dot-'+t, 'dot-'+t+'-app', 'dot-'+t+'-cfg'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.classList.toggle('active', t === tema);
     });
@@ -1539,7 +1613,7 @@ function toggleThemePicker() {
   if (t !== 'obsidian') document.documentElement.setAttribute('data-theme', t);
   setTimeout(() => {
     ['obsidian','forest','arctic'].forEach(n => {
-      ['dot-'+n,'dot-'+n+'-app'].forEach(id => {
+      ['dot-'+n,'dot-'+n+'-app','dot-'+n+'-cfg'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.toggle('active', n === t);
       });

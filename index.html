@@ -914,12 +914,13 @@ function renderHomeHoy(txt) {
   const lineas = txt.replace('📅 Gastos de hoy\n\n','').split('\n').filter(l => l.startsWith('• '));
   const totalMatch = txt.match(/Total: \$(.+)/);
   if (totalMatch) totalEl.textContent = '$' + totalMatch[1];
+  // Formato del script: "• categoria — descripcion (metodo): $monto"
   lista.innerHTML = lineas.slice(0, 5).map(l => {
     const m = l.match(/• (.+?) — (.+?) \((.+?)\): \$(.+)/);
-    if (!m) return '';
+    if (!m) return `<div class="home-hoy-item"><span class="home-hoy-desc">${l.replace('• ','')}</span></div>`;
     return `<div class="home-hoy-item">
       <span class="home-hoy-desc">${m[2]}</span>
-      <span class="home-hoy-meta">${m[1]}</span>
+      <span class="home-hoy-meta">${m[1]} · ${m[3]}</span>
       <span class="home-hoy-monto">$${m[4]}</span>
     </div>`;
   }).join('') + (lineas.length > 5 ? `<div style="color:var(--muted);font-size:11px;padding-top:6px;">+${lineas.length-5} más</div>` : '');
